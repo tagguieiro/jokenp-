@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Jokenpô</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #resultado {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo Jokenpô</h1>
+    <h3>Escolha sua opção:</h3>
+
+    <!-- Imagens das opções do jogo -->
+    <img src="Pedra.png" alt="Pedra" id="imgPedra" onclick="escolher('Pedra')">
+    <img src="Papel.png" alt="Papel" id="imgPapel" onclick="escolher('Papel')">
+    <img src="Tesoura.png" alt="Tesoura" id="imgTesoura" onclick="escolher('Tesoura')">
+
+    <br><br>
+
+    <h3>Resultado:</h3>
+    <p id="resultado">Escolha uma opção para jogar.</p>
+
+    <script>
+        let escolhaJogador = '';
+
+        // Função para capturar a escolha do jogador
+        function escolher(escolha) {
+            escolhaJogador = escolha; // Salva a escolha do jogador
+            document.getElementById("resultado").innerText = `Você escolheu: ${escolhaJogador}`;
+        }
+
+        // Função para comparar as escolhas e determinar o vencedor
+        function jogar() {
+            if (!escolhaJogador) {
+                alert("Escolha uma opção antes de jogar!");
+                return;
+            }
+
+            // Gerar escolha aleatória do computador
+            let escolhas = ["Pedra", "Papel", "Tesoura"];
+            let escolhaComputador = escolhas[Math.floor(Math.random() * 3)];
+
+            // Comparar as escolhas
+            let resultado = '';
+
+            if (escolhaJogador === escolhaComputador) {
+                resultado = "Empate!";
+            } else if (
+                (escolhaJogador === "Pedra" && escolhaComputador === "Tesoura") ||
+                (escolhaJogador === "Papel" && escolhaComputador === "Pedra") ||
+                (escolhaJogador === "Tesoura" && escolhaComputador === "Papel")
+            ) {
+                resultado = "Você venceu!";
+            } else {
+                resultado = "Você perdeu!";
+            }
+
+            // Exibir o resultado
+            document.getElementById("resultado").innerHTML = `
+                Sua escolha: ${escolhaJogador}<br>
+                Escolha do computador: ${escolhaComputador}<br>
+                ${resultado}
+            `;
+        }
+    </script>
+
+    <br><br>
+    <button onclick="jogar()">Jogar</button>
+</body>
+</html>
